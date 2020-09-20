@@ -1,13 +1,14 @@
-<template>
-  123456
-</template>
+<template>123456</template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
 
-}
+export default defineComponent({
+  setup() {
+    return {};
+  },
+});
 </script>
 
 <style>
-
 </style>
