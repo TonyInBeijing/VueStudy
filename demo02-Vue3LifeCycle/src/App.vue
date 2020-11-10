@@ -4,6 +4,7 @@
 </template>
 
 <script lang="ts">
+import HelloWorld from "./components/HelloWorld.vue";
 import {
   defineComponent,
   onActivated,
@@ -19,7 +20,10 @@ interface Student {
   class: string;
   age: number;
 }
-const Component = defineComponent({
+export default defineComponent({
+  components: {
+    HelloWorld,
+  },
   setup(props, context) {
     // 挂载后
     onMounted(() => {});
