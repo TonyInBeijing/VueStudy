@@ -1,6 +1,11 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <input v-model="inputVal" />
+  <button @click="addTodo">添加</button>
+  <ul>
+    <li v-for="(item, index) in todoList" :key="index">{{ item }}</li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -14,6 +19,7 @@ import {
   onUnmounted,
   onUpdated,
   PropType,
+  ref,
 } from "vue";
 interface Student {
   name: string;
@@ -26,18 +32,41 @@ export default defineComponent({
   },
   setup(props, context) {
     // 挂载后
-    onMounted(() => {});
+    onMounted(() => {
+      console.log("组件挂载");
+    });
     // 卸载后
-    onUnmounted(() => {});
+    onUnmounted(() => {
+      console.log("组件卸载");
+    });
     // 更新后
-    onUpdated(() => {});
+    onUpdated(() => {
+      console.log("组件更新");
+    });
     // 即将更新
-    onBeforeUpdate(() => {});
+    onBeforeUpdate(() => {
+      console.log("组件即将更新");
+    });
     // keepalive 组件激活
-    onActivated(() => {});
+    onActivated(() => {
+      console.log("组件激活");
+    });
     // keepalive 组件非激活
-    onDeactivated(() => {});
-    return {};
+    onDeactivated(() => {
+      console.log("组件非激活");
+    });
+
+    const inputVal = ref("");
+    const todoList = ref<string[]>([]);
+    function addTodo() {
+      todoList.value.push(inputVal.value);
+      inputVal.value = "";
+    }
+    return {
+      inputVal,
+      todoList,
+      addTodo,
+    };
   },
 });
 </script>
