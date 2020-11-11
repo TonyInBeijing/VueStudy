@@ -19,7 +19,9 @@ import {
   onUnmounted,
   onUpdated,
   PropType,
+  reactive,
   ref,
+  toRefs,
 } from "vue";
 interface Student {
   name: string;
@@ -56,15 +58,20 @@ export default defineComponent({
       console.log("组件非激活");
     });
 
-    const inputVal = ref("");
-    const todoList = ref<string[]>([]);
+    // const inputVal = ref("");
+    // const todoList = ref<string[]>([]);
+    const inputData = reactive({
+      inputVal: "",
+      todoList: [],
+    });
     function addTodo() {
-      todoList.value.push(inputVal.value);
-      inputVal.value = "";
+      // todoList.value.push(inputVal.value);
+      // inputVal.value = "";
+      inputData.todoList.push(inputData.inputVal);
+      inputData.inputVal = "";
     }
     return {
-      inputVal,
-      todoList,
+      ...toRefs(inputData),
       addTodo,
     };
   },
