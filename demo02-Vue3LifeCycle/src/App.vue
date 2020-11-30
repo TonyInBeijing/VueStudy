@@ -56,16 +56,11 @@ export default defineComponent({
     onDeactivated(() => {
       console.log("组件非激活");
     });
-
-    // const inputVal = ref("");
-    // const todoList = ref<string[]>([]);
     const inputData = reactive({
       inputVal: "",
       todoList: [],
     });
     function addTodo() {
-      // todoList.value.push(inputVal.value);
-      // inputVal.value = "";
       inputData.todoList.push(inputData.inputVal);
       inputData.inputVal = "";
     }
