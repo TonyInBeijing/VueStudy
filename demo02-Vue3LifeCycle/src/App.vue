@@ -6,7 +6,6 @@
     <li v-for="(item, index) in todoList" :key="index">{{ item }}</li>
   </ul>
 </template>
-
 <script lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import {
