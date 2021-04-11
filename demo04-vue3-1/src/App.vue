@@ -1,17 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <h2>欢迎光临红浪漫洗浴中心</h2>
+  <div>请选择一位美女为您服务</div>
+  <div>
+    <button v-for="(item, index) in girls" v-bind:key="index">
+      {{ index }}: {{ item }}
+    </button>
+  </div>
+  <!-- <HelloWorld msg="Hello World!"/> -->
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent, ref } from "vue";
+// import HelloWorld from './components/HelloWorld.vue';
 
 export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: "App",
+  setup() {
+    const girls = ref(["大脚", "刘英", "晓红"]);
+    return {
+      girls,
+    };
+  },
+  // components: {
+  //   HelloWorld
+  // }
 });
 </script>
 
