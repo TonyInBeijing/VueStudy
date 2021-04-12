@@ -16,21 +16,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, reactive, toRefs } from "vue";
 // import HelloWorld from './components/HelloWorld.vue';
+
+interface DataProps {
+  girls: string[];
+  selectedGirl: string;
+  selectGirlFunc: (index: number) => void;
+}
 
 export default defineComponent({
   name: "App",
   setup() {
-    const girls = ref(["大脚", "刘英", "晓红"]);
-    const selectedGirl = ref("");
-    const selectGirlFunc = (index: number) => {
-      selectedGirl.value = girls.value[index];
-    };
+    const data: DataProps = reactive({
+      girls: ["大脚", "刘英", "晓红"],
+      selectedGirl: "",
+      selectGirlFunc: (index: number) => {
+        data.selectedGirl = data.girls[index];
+      },
+    });
+    const refData = toRefs(data);
     return {
-      girls,
-      selectedGirl,
-      selectGirlFunc,
+      ...refData,
     };
   },
   // components: {
