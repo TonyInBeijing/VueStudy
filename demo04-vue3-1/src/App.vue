@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, toRefs } from "vue";
-// import HelloWorld from './components/HelloWorld.vue';
 
 interface DataProps {
   girls: string[];
@@ -40,9 +39,6 @@ export default defineComponent({
       ...refData,
     };
   },
-  // components: {
-  //   HelloWorld
-  // }
 });
 </script>
 
