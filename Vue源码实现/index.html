@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue源码实现</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script type="text/javascript">
+        /**
+         * 将data上的数据映射到this上
+         * 取值直接从data上取，赋值直接赋给data，只是可以用this访问到 
+        **/
+        function proxy(target, data, key) {
+            Object.defineProperty(target, key, {
+                get() {
+                    return data[key];
+                },
+                set(newVal) {
+                    data[key] = newVal;
+                }
+            });
+        }
+
+        /**
+         * 递归遍历data上深层次对象 
+         **/
+        function walk(obj, updateCb) {
+            Object.keys(obj).forEach(key => {
+                if (typeof obj[key] === 'object' && obj[key] != null) {
+                    walk(obj[key], updateCb);
+                }
+                defineReactive(obj, key, obj[key], updateCb);
+            });
+            return obj;
+        }
+
+        /**
+         * 将data上的属性变成响应式 
+        **/
+        function defineReactive(obj, key, value, updateCb) {
+            Object.defineProperty(obj, key, {
+                get() {
+                    return value;
+                },
+                set(newVal) {
+                    value = newVal;
+                    // 通知刷新方法
+                    updateCb && updateCb();
+                }
+            });
+        };
+        /**
+         * 实现Vue 
+        **/
+        class Vue {
+            constructor(options) {
+                this.$el = document.querySelector(options.el);
+                this._data = walk(options.data && options.data(), () => { this._update() });
+                this.render = options.render;
+                for (let key in this._data) {
+                    proxy(this, this._data, key);
+                }
+                this._update();
+            }
+            // 创建element
+            _createElement(tagName, data, children) {
+                const tag = document.createElement(tagName);
+                const { attrs = {} } = data;
+                for (let attrName in attrs) {
+                    tag.setAttribute(attrName, attrs[attrName]);
+                }
+                if (Object.prototype.toString.call(children) !== '[object Array]') {
+                    let child = document.createTextNode(children);
+                    tag.append(child);
+                }
+                else {
+                    children.forEach(child => {
+                        tag.appendChild(child);
+                    });
+                }
+                return tag;
+            }
+            _update() {
+                const $root = this.render(this._createElement);
+                console.log($root);
+                // 将根节点替换成生成的元素
+                api.replaceChild(this.$el, $root);
+                this.$el = $root;
+            }
+        }
+        const api = {
+            replaceChild(oldElement, element) {
+                return oldElement.parentElement.replaceChild(element, oldElement);
+            }
+        };
+
+
+        /**
+         * 调用
+        **/
+        let app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    price: '27',
+                    infos: {
+                        title: "猪肉的价格"
+                    }
+                }
+            },
+            render(createElement) {
+                return createElement("div", {
+                    attrs: {
+                        title: this.infos.title
+                    }
+                }, [
+                    createElement("span", {}, this.price)
+                ]);
+            }
+        });
+        window.app = app;
+    </script>
+</body>
+
+</html>
