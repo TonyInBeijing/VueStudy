@@ -10,10 +10,10 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <script type="text/javascript">
 
-
         class Dep {
             constructor() {
                 // 所有监听者 都有谁监听我了
+                // watcher数组
                 this.subs = [];
             }
             // 通知所有监听者
@@ -41,9 +41,9 @@
          **/
         class Watcher {
             constructor(getter, callback) {
-                this.callback = callback;
                 this.getter = getter;
                 this.value = this.get();
+                this.callback = callback;
             }
             get() {
                 // 记录一下我自己
@@ -61,9 +61,9 @@
             }
         }
 
-        function pushTarget(instance) {
+        function pushTarget(watcher) {
             // 接下来发生的所有依赖，都算在这个instance上
-            Dep.targets.push(instance);
+            Dep.targets.push(watcher);
         }
 
         function popTarget() {
@@ -77,12 +77,12 @@
             constructor(obj) {
                 this.walk(obj);
             }
-            walk(obj, updateCb) {
+            walk(obj) {
                 Object.keys(obj).forEach(key => {
                     if (typeof obj[key] === 'object' && obj[key] != null) {
-                        this.walk(obj[key], updateCb);
+                        this.walk(obj[key]);
                     }
-                    defineReactive(obj, key, obj[key], updateCb);
+                    defineReactive(obj, key, obj[key]);
                 });
                 return obj;
             }
@@ -108,7 +108,7 @@
         /**
          * 将data上的属性变成响应式 
         **/
-        function defineReactive(obj, key, value, updateCb) {
+        function defineReactive(obj, key, value) {
             const dep = new Dep();
             Object.defineProperty(obj, key, {
                 get() {
