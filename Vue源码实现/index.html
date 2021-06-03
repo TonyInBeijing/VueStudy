@@ -9,7 +9,9 @@
     <div id="app"></div>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <script type="text/javascript">
-
+        /**
+         * 依赖分析
+         **/
         class Dep {
             constructor() {
                 // 所有监听者 都有谁监听我了
@@ -23,13 +25,13 @@
                     this.subs[i].update();
                 }
             }
-
+            // 添加监听者
             addSub(sub) {
                 if (this.subs.indexOf(sub) === -1) {
                     this.subs.push(sub);
                 }
             }
-
+            // 添加依赖分析
             addDepend() {
                 Dep.targets[Dep.targets.length - 1].addDep(this);
             }
@@ -60,16 +62,13 @@
                 this.value = newVal;
             }
         }
-
         function pushTarget(watcher) {
             // 接下来发生的所有依赖，都算在这个instance上
             Dep.targets.push(watcher);
         }
-
         function popTarget() {
             return Dep.targets.pop();
         }
-
         /**
          * 递归遍历data上深层次对象 
          **/
@@ -87,7 +86,6 @@
                 return obj;
             }
         }
-
         /**
          * 将data上的数据映射到this上
          * 取值直接从data上取，赋值直接赋给data，只是可以用this访问到 
@@ -103,8 +101,6 @@
                 }
             });
         }
-
-
         /**
          * 将data上的属性变成响应式 
         **/
@@ -140,7 +136,7 @@
                 new Watcher(() => {
                     console.log("watcher");
                     this._update();
-                }, () => { console.log("callback") });
+                }, () => { console.log("Watcher Callback") });
             }
             // 创建element
             _createElement(tagName, data, children) {
@@ -162,19 +158,17 @@
             }
             _update() {
                 const $root = this.render(this._createElement);
-                console.log($root);
                 // 将根节点替换成生成的元素
                 api.replaceChild(this.$el, $root);
                 this.$el = $root;
             }
         }
+        // 将旧元素替换成新元素
         const api = {
             replaceChild(oldElement, element) {
                 return oldElement.parentElement.replaceChild(element, oldElement);
             }
         };
-
-
         /**
          * 调用
         **/
