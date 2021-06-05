@@ -26,12 +26,12 @@
 
             addSub(sub) {
                 if (this.subs.indexOf(sub) === -1) {
-                    this.subs.push(sub);
+                    this.subs.push(sub); // this.subs.push(new Watcher())
                 }
             }
 
             addDepend() {
-                Dep.targets[Dep.targets.length - 1].addDep(this);
+                Dep.targets[Dep.targets.length - 1].addDep(this); // new Watcher().addDep(new Dep())
             }
 
         }
@@ -47,13 +47,13 @@
             }
             get() {
                 // 记录一下我自己
-                pushTarget(this);
-                let value = this.getter();
+                pushTarget(this); // Dep.target.push(new Wathcher())
+                let value = this.getter(); // 触发defineReactive方法
                 popTarget();
                 return value;
             }
             addDep(dep) {
-                dep.addSub(this);
+                dep.addSub(this); // new Dep().addSub(new Watcher())
             }
             update() {
                 let newVal = this.get();
@@ -77,12 +77,12 @@
             constructor(obj) {
                 this.walk(obj);
             }
-            walk(obj, updateCb) {
+            walk(obj) {
                 Object.keys(obj).forEach(key => {
                     if (typeof obj[key] === 'object' && obj[key] != null) {
-                        this.walk(obj[key], updateCb);
+                        this.walk(obj[key]);
                     }
-                    defineReactive(obj, key, obj[key], updateCb);
+                    defineReactive(obj, key, obj[key]);
                 });
                 return obj;
             }
@@ -108,7 +108,7 @@
         /**
          * 将data上的属性变成响应式 
         **/
-        function defineReactive(obj, key, value, updateCb) {
+        function defineReactive(obj, key, value) {
             const dep = new Dep();
             Object.defineProperty(obj, key, {
                 get() {
