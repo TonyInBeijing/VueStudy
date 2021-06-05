@@ -50,7 +50,7 @@
             get() {
                 // 记录一下我自己
                 pushTarget(this); // Dep.target.push(new Wathcher())
-                let value = this.getter(); // 触发defineReactive方法
+                let value = this.getter(); // 触发this._update，触发defineReactive方法
                 popTarget();
                 return value;
             }
@@ -105,9 +105,11 @@
          * 将data上的属性变成响应式 
         **/
         function defineReactive(obj, key, value) {
+            // 为每一个key都创建一个依赖分析
             const dep = new Dep();
             Object.defineProperty(obj, key, {
                 get() {
+                    // 读取值时，如果Dep.targets中有Watcher，那么把当前key加上去
                     // 添加到window.watcher.dependencies.add(key)
                     if (Dep.targets.length > 0) {
                         dep.addDepend();
@@ -128,11 +130,13 @@
             constructor(options) {
                 this.$el = document.querySelector(options.el);
                 this._data = options.data && options.data();
+                // 观察data上每个对象的每个key
                 new Observer(this._data);
                 this.render = options.render;
                 for (let key in this._data) {
                     proxy(this, this._data, key);
                 }
+                // 创建观察者
                 new Watcher(() => {
                     console.log("watcher");
                     this._update();
