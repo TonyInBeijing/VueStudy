@@ -162,7 +162,6 @@
             }
             _update() {
                 const $root = this.render(this._createElement);
-                // 将根节点替换成生成的元素
                 api.replaceChild(this.$el, $root);
                 this.$el = $root;
             }
