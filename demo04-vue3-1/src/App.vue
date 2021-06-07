@@ -16,7 +16,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs } from "vue";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  toRefs,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted,
+} from "vue";
 
 interface DataProps {
   girls: string[];
@@ -26,7 +37,9 @@ interface DataProps {
 
 export default defineComponent({
   name: "App",
+  // 组件创建之前
   setup() {
+    console.log("1-开始创建---setup()");
     const data: DataProps = reactive({
       girls: ["大脚", "刘英", "晓红"],
       selectedGirl: "",
@@ -34,6 +47,32 @@ export default defineComponent({
         data.selectedGirl = data.girls[index];
       },
     });
+
+    onBeforeMount(() => {
+      console.log("2-组件挂载到页面之前执行---onBeforeMount()");
+    });
+
+    onMounted(() => {
+      console.log("3-组件挂载到页面之后执行---onMounted()");
+    });
+
+    onBeforeUpdate(() => {
+      console.log("4-组件更新之前执行---onBeforeUnpdate()");
+    });
+
+    onUpdated(() => {
+      console.log("5-组件更新之后执行---onUpdate()");
+    });
+
+    onBeforeUnmount(() => {
+      console.log("6-组件卸载之前执行---onBeforeUnmount()");
+    });
+
+    onUnmounted(() => {
+      console.log("7-组件卸载之后执行---onUnmounted()");
+    });
+
+    // toRefs + ... 在模版中直接使用的响应式数据，而且不需要加refData
     const refData = toRefs(data);
     return {
       ...refData,
