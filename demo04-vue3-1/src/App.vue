@@ -15,6 +15,7 @@
   <button @click="overAction">点餐完毕</button>
   <div>{{ overText }}</div>
   <hello-world></hello-world>
+  <url-axios></url-axios>
 </template>
 
 <script lang="ts">
@@ -34,7 +35,8 @@ import {
   watch,
 } from "vue";
 import HelloWorld from "../src/components/HelloWorld.vue";
-
+import UrlAxios from "../src/components/UrlAxios.vue";
+import UseAxios from "../src/components/UrlAxios.vue";
 interface DataProps {
   girls: string[];
   selectedGirl: string;
@@ -42,7 +44,7 @@ interface DataProps {
 }
 
 export default defineComponent({
-  components: { HelloWorld },
+  components: { HelloWorld, UrlAxios },
   name: "App",
   // 组件创建之前
   setup() {
