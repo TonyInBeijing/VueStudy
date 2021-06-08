@@ -12,9 +12,9 @@
     </button>
   </div>
   <div>您选择了::{{ selectedGirl }}</div>
-  <!-- <HelloWorld msg="Hello World!"/> -->
   <button @click="overAction">点餐完毕</button>
   <div>{{ overText }}</div>
+  <hello-world></hello-world>
 </template>
 
 <script lang="ts">
@@ -33,6 +33,7 @@ import {
   onRenderTriggered,
   watch,
 } from "vue";
+import HelloWorld from "../src/components/HelloWorld.vue";
 
 interface DataProps {
   girls: string[];
@@ -41,6 +42,7 @@ interface DataProps {
 }
 
 export default defineComponent({
+  components: { HelloWorld },
   name: "App",
   // 组件创建之前
   setup() {
