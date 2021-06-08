@@ -17,6 +17,14 @@
   <div>{{ overText }}</div>
   <hello-world></hello-world>
   <url-axios></url-axios>
+  <Suspense>
+    <template #default>
+      <async-show></async-show>
+    </template>
+    <template #fallback>
+      <h1>Loading...</h1>
+    </template>
+  </Suspense>
 </template>
 
 <script lang="ts">
@@ -38,6 +46,7 @@ import {
 import HelloWorld from "../src/components/HelloWorld.vue";
 import UrlAxios from "../src/components/UrlAxios.vue";
 import Modal from "../src/components/Modal.vue";
+import AsyncShow from "../src/components/AsyncShow.vue";
 interface DataProps {
   girls: string[];
   selectedGirl: string;
@@ -45,7 +54,7 @@ interface DataProps {
 }
 
 export default defineComponent({
-  components: { HelloWorld, UrlAxios, Modal },
+  components: { HelloWorld, UrlAxios, Modal, AsyncShow },
   name: "App",
   // 组件创建之前
   setup() {
