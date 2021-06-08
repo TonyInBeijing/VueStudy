@@ -19,7 +19,8 @@
   <url-axios></url-axios>
   <Suspense>
     <template #default>
-      <async-show></async-show>
+      <!-- <async-show></async-show> -->
+      <girl-show></girl-show>
     </template>
     <template #fallback>
       <h1>Loading...</h1>
@@ -42,11 +43,13 @@ import {
   onRenderTracked,
   onRenderTriggered,
   watch,
+  onErrorCaptured,
 } from "vue";
 import HelloWorld from "../src/components/HelloWorld.vue";
 import UrlAxios from "../src/components/UrlAxios.vue";
 import Modal from "../src/components/Modal.vue";
-import AsyncShow from "../src/components/AsyncShow.vue";
+// import AsyncShow from "../src/components/AsyncShow.vue";
+import GirlShow from "../src/components/GirlShow.vue";
 interface DataProps {
   girls: string[];
   selectedGirl: string;
@@ -54,7 +57,7 @@ interface DataProps {
 }
 
 export default defineComponent({
-  components: { HelloWorld, UrlAxios, Modal, AsyncShow },
+  components: { HelloWorld, UrlAxios, Modal, GirlShow },
   name: "App",
   // 组件创建之前
   setup() {
@@ -113,7 +116,11 @@ export default defineComponent({
       console.log("old:::", oldValue);
       document.title = newValue[0];
     });
-
+    // 异常捕获
+    onErrorCaptured((error) => {
+      console.log(error);
+      return true;
+    });
     return {
       ...refData,
       overText,

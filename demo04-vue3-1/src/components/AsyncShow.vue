@@ -5,11 +5,9 @@
 import { defineComponent, ref } from "vue";
 export default defineComponent({
   setup() {
-    const result = ref("");
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        result.value = "result";
-        return resolve({ result: "result" });
+        return resolve({ result: "Result" });
       }, 3000);
     });
   },
