@@ -2,6 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png" />
   <h2>欢迎光临红浪漫洗浴中心</h2>
   <div>请选择一位美女为您服务</div>
+  <modal></modal>
   <div>
     <button
       v-for="(item, index) in girls"
@@ -36,7 +37,7 @@ import {
 } from "vue";
 import HelloWorld from "../src/components/HelloWorld.vue";
 import UrlAxios from "../src/components/UrlAxios.vue";
-import UseAxios from "../src/components/UrlAxios.vue";
+import Modal from "../src/components/Modal.vue";
 interface DataProps {
   girls: string[];
   selectedGirl: string;
@@ -44,7 +45,7 @@ interface DataProps {
 }
 
 export default defineComponent({
-  components: { HelloWorld, UrlAxios },
+  components: { HelloWorld, UrlAxios, Modal },
   name: "App",
   // 组件创建之前
   setup() {
