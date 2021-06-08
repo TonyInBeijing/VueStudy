@@ -13,6 +13,8 @@
   </div>
   <div>您选择了::{{ selectedGirl }}</div>
   <!-- <HelloWorld msg="Hello World!"/> -->
+  <button @click="overAction">点餐完毕</button>
+  <div>{{ overText }}</div>
 </template>
 
 <script lang="ts">
@@ -27,6 +29,9 @@ import {
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
+  onRenderTracked,
+  onRenderTriggered,
+  watch,
 } from "vue";
 
 interface DataProps {
@@ -72,10 +77,33 @@ export default defineComponent({
       console.log("7-组件卸载之后执行---onUnmounted()");
     });
 
+    // onRenderTracked((event) => {
+    //   console.log("状态跟踪钩子函数");
+    //   console.log(event);
+    // });
+    onRenderTriggered((event) => {
+      console.log("状态跟踪函数");
+      console.log(event);
+    });
+
     // toRefs + ... 在模版中直接使用的响应式数据，而且不需要加refData
     const refData = toRefs(data);
+
+    const overText = ref("红浪漫");
+    const overAction = () => {
+      overText.value = "点餐完成｜" + overText.value;
+    };
+    // 侦听器
+    watch([overText, () => data.selectedGirl], (newValue, oldValue) => {
+      console.log("new:::", newValue);
+      console.log("old:::", oldValue);
+      document.title = newValue[0];
+    });
+
     return {
       ...refData,
+      overText,
+      overAction,
     };
   },
 });
