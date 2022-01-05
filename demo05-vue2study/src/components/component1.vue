@@ -1,8 +1,11 @@
 <template>
     <div>
         <h1>{{ msg }}</h1>
-        <h2>{{ helloMsg }}</h2>
-        <button @click="sayHello">打招呼</button>
+        <h2 v-if="showProps">{{ helloMsg }}</h2>
+        <h2 v-else>Props 被隐藏了</h2>
+        <h2 v-for="(car,index) in cars" :key="index">{{ car }}</h2>
+        <button @click="switchProps">打招呼</button>
+        <button @click="buyCars">买车</button>
     </div>
 </template>
 
@@ -14,12 +17,21 @@ export default {
     ],
     data() {
         return {
-            msg: "Hello Vue2"
+            msg: "Hello Vue2",
+            showProps: true,
+            cars: [
+                "Benz",
+                "BMW",
+                "Audi"
+            ]
         };
     },
     methods: {
-        sayHello() {
-            this.msg += "!";
+        switchProps() {
+            this.showProps = !this.showProps;
+        },
+        buyCars() {
+            this.cars.push("Toyota");
         }
     },
 }
