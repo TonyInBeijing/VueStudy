@@ -7,7 +7,7 @@
 
 <script>
 
-import Component1 from "./components/Component1.vue";
+import Component1 from "./components/component1.vue";
 
 export default {
   name: 'App',
