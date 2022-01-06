@@ -23,7 +23,7 @@ export default {
     changesite() {
       window.location.replace("https://www.baidu.com");
     },
-    searchItem(inputItem) {
+    searchItem() {
       var url = "https://www.baidu.com/s?ie=utf-8&wd=" + this.inputItem;
       window.location.replace(url);
     },
