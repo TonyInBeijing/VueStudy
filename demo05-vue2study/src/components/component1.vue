@@ -6,6 +6,7 @@
         <h2 v-for="(car,index) in cars" :key="index">{{ car }}</h2>
         <button @click="switchProps">打招呼</button>
         <button @click="buyCars">买车</button>
+        <button @click="sellCars">卖车</button>
     </div>
 </template>
 
@@ -32,6 +33,9 @@ export default {
         },
         buyCars() {
             this.cars.push("Toyota");
+        },
+        sellCars() {
+            this.cars = this.cars.slice(0, this.cars.length - 1);
         }
     },
 }
