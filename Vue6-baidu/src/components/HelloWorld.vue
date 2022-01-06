@@ -3,7 +3,7 @@
     <ul>
       <li>
         <a
-          href="http://router.vuejs.org/"
+          href="https://news.baidu.com"
           target="_blank"
         >
           新闻
@@ -11,7 +11,7 @@
       </li>
       <li>
         <a
-          href="http://vuex.vuejs.org/"
+          href="https://www.baidu.com"
           target="_blank"
         >
           网页
@@ -19,7 +19,7 @@
       </li>
       <li>
         <a
-          href="http://vue-loader.vuejs.org/"
+          href="https://tieba.baidu.com/index.html"
           target="_blank"
         >
           贴吧
@@ -27,7 +27,7 @@
       </li>
       <li>
         <a
-          href="https://github.com/vuejs/awesome-vue"
+          href="https://zhidao.baidu.com"
           target="_blank"
         >
           知道
@@ -35,15 +35,15 @@
       </li>
       <li>
         <a
-          href="https://github.com/vuejs/awesome-vue"
+          href="https://wenku.baidu.com"
           target="_blank"
-        >
-          MP3
+        > 
+          文库
         </a>
       </li>
       <li>
         <a
-          href="https://github.com/vuejs/awesome-vue"
+          href="https://image.baidu.com"
           target="_blank"
         >
           图片
@@ -51,7 +51,7 @@
       </li>
       <li>
         <a
-          href="https://github.com/vuejs/awesome-vue"
+          href="http://v.baidu.com"
           target="_blank"
         >
           视频
@@ -59,7 +59,7 @@
       </li>
       <li>
         <a
-          href="https://github.com/vuejs/awesome-vue"
+          href="https://map.baidu.com"
           target="_blank"
         >
           地图
