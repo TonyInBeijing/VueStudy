@@ -12,7 +12,7 @@
         </div>
 
         <div v-for="(car,index) in cars" :key="car">
-            <h2>车型：{{ car }}</h2>
+            <h2>车型：{{ car.name }} 购买时间：{{ car.time }}</h2>
             <button @click="sellCars(index)">卖车</button>
         </div>
     </div>
@@ -29,10 +29,12 @@ export default {
             msg: "Hello Vue2",
             showProps: true,
             cars: [
-                "Benz",
-                "BMW",
-                "Audi"
+                {
+                    name: "bmw",
+                    time: "2021-01"
+                }
             ],
+            times:[],
             carName: "",
         };
     },
@@ -59,10 +61,13 @@ export default {
             }
             else {
                 this.cars.push(this.carName);
+                var myDate = new Date();
+                this.times.push(myDate.toLocaleString( ));
             }
         },
         sellCars(index) {
-            this.cars.splice(index, 1)
+            this.cars.splice(index, 1);
+            this.times.splice(index,1);
         }
     },
 }
